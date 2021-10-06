@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: [true, "Must enter title"],
     },
@@ -10,8 +10,12 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    body: {
+    desc: {
       type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
       required: true,
     },
     published: {
@@ -22,4 +26,4 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Order", PostSchema);
