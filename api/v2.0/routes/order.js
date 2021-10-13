@@ -1,11 +1,7 @@
 const express = require("express");
+const { indexOrder } = require("../controller/order");
 const orderRouter = express.Router();
 
-orderRouter.get("/", (req, res, next) => {
-  res.json({
-    status: "success",
-    message: "This is Order Router v2",
-  });
-});
+orderRouter.get("/", indexOrder);
 
 module.exports = orderRouter;

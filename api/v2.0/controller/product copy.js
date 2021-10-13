@@ -8,7 +8,6 @@ const indexProducts = async (req, res) => {
     if (product) {
       res.status(200).json({
         status: "success",
-        count: product.length,
         message: "All Product",
         data: product,
       });
