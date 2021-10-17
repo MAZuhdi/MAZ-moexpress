@@ -16,6 +16,8 @@ mongoose.connect("mongodb://localhost:27017/collect_moexpress", {
 //   }
 // );
 
+mongoose.Promise = global.Promise; //use default js promise instead mongoose promise
+
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "connection error"));

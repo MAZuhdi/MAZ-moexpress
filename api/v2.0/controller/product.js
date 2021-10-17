@@ -10,7 +10,17 @@ const indexProducts = async (req, res) => {
         status: "success",
         count: product.length,
         message: "All Product",
-        data: product,
+        data: product.map((doc) => {
+          return {
+            name: doc.name,
+            price: doc.price,
+            _id: doc._id,
+            request: {
+              type: "GET",
+              url: "http://localhost:8100/api/v2/products/" + doc._id,
+            },
+          };
+        }),
       });
     } else {
       res.status(200).json({
@@ -54,6 +64,7 @@ const createProduct = async (req, res) => {
     // });
 
     if (product) {
+      product.url = "http://localhost:8100/api/v2/products/" + product._id;
       res.status(201).json({
         status: "success",
         message: "Product created",
@@ -133,6 +144,16 @@ const deleteProduct = async (req, res) => {
       res.status(200).json({
         status: "success",
         message: "Product deleted",
+        request: {
+          type: "POST",
+          url: "http://localhost:8100/api/v2/products",
+          body: {
+            name: "String",
+            desc: "String",
+            price: "Number",
+            published: "Boolean",
+          },
+        },
       });
     } else {
       res.status(404).json({

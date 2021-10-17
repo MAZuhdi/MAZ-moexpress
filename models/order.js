@@ -1,29 +1,18 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema(
+const OrderSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "Must enter title"],
-    },
-    slug: {
-      type: String,
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
       required: true,
     },
-    desc: {
-      type: String,
-      required: true,
-    },
-    price: {
+    quantity: {
       type: Number,
-      required: true,
-    },
-    published: {
-      type: Boolean,
-      required: true,
+      default: 1,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Order", PostSchema);
+module.exports = mongoose.model("Order", OrderSchema);
