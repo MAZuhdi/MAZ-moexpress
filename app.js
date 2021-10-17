@@ -9,6 +9,7 @@ const v2 = require("./api/v2.0"); //Version 2 Router
 require("./config/db.config");
 
 app.use(morgan("dev")); //Log purposes
+app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

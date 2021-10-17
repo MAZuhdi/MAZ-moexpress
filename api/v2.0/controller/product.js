@@ -15,6 +15,7 @@ const indexProducts = async (req, res) => {
             name: doc.name,
             price: doc.price,
             _id: doc._id,
+            productImage: doc.productImage,
             request: {
               type: "GET",
               url: "http://localhost:8100/api/v2/products/" + doc._id,
@@ -39,6 +40,7 @@ const indexProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
+    console.log(req.file); //dari multer middleware
     const { name, desc, price } = req.body;
     const slug = generateSlug(name).toLowerCase();
 
@@ -50,6 +52,7 @@ const createProduct = async (req, res) => {
       price: req.body.price,
       // Kalo ada, pake body.published, kalo gada, isi false
       published: req.body.published ? req.body.published : false,
+      productImage: req.file.path,
     });
 
     product.save(product);

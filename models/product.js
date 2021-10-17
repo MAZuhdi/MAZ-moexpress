@@ -22,6 +22,10 @@ const PostSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    productImage: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
