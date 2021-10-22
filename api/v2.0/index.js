@@ -1,7 +1,8 @@
 const express = require("express");
 const v2 = express.Router();
 const orderRouter = require("./routes/order");
-const productsRouter = require("./routes/products");
+const productRouter = require("./routes/product");
+const userRouter = require("./routes/user");
 
 // Hello World
 v2.get("/", (req, res, next) => {
@@ -11,7 +12,8 @@ v2.get("/", (req, res, next) => {
   });
 });
 
-v2.use("/products", productsRouter);
+v2.use("/products", productRouter);
 v2.use("/orders", orderRouter);
+v2.use("/users", userRouter);
 
 module.exports = v2;
