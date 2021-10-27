@@ -1,6 +1,9 @@
 const express = require("express");
 const { default: generateSlug } = require("slugify");
 const multer = require("multer");
+
+const checkAuth = require("../middleware/check-auth");
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -36,9 +39,14 @@ const {
 } = require("../controller/Product");
 
 productsRouter.get("/", indexProducts);
-productsRouter.post("/", upload.single("productImage"), createProduct);
+productsRouter.post(
+  "/",
+  checkAuth,
+  upload.single("productImage"),
+  createProduct
+);
 productsRouter.get("/:id", findOne);
-productsRouter.put("/:id", updateProduct);
-productsRouter.delete("/:id", deleteProduct);
+productsRouter.put("/:id", checkAuth, updateProduct);
+productsRouter.delete("/:id", checkAuth, deleteProduct);
 
 module.exports = productsRouter;

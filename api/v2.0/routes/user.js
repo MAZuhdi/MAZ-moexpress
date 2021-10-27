@@ -8,6 +8,9 @@ const { default: generateSlug } = require("slugify");
 
 const multer = require("multer");
 
+const jwt = require("jsonwebtoken");
+const user = require("../../../models/user");
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -34,6 +37,12 @@ const upload = multer({
 // const upload = multer({ dest: "uploads/" });
 
 const userRouter = express.Router();
+
+// userRouter.get("/test", (req, res) => {
+//   res.json({
+//     message: process.env.JWT_KEY,
+//   });
+// });
 
 userRouter.get("/", (req, res, next) => {
   User.find()
@@ -107,8 +116,14 @@ userRouter.post("/login", (req, res, next) => {
           });
         }
         if (result) {
+          const token = jwt.sign(
+            { email: user[0].email, userId: user[0]._id },
+            process.env.JWT_KEY,
+            { expiresIn: "1h" }
+          );
           return res.status(200).json({
             message: "Auth successful",
+            token: token,
           });
         }
         return res.status(401).json({
